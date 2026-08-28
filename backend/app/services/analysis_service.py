@@ -10,9 +10,12 @@ class AnalysisService:
         self.llm_analyzer = LLMAnalyzer()
 
     def analyze_code(self, request: AnalysisRequest) -> AnalysisResponse:
+        # Clean up non-breaking spaces
+        clean_source_code = request.source_code.replace('\xa0', ' ').replace('\u00A0', ' ')
+        
         ast_info = {}
         if request.language.lower() == "python":
-            ast_info = self.ast_analyzer.analyze(request.source_code)
+            ast_info = self.ast_analyzer.analyze(clean_source_code)
             if not ast_info.get("valid_syntax"):
                 return AnalysisResponse(
                     correctness_assessment="Syntax Error detected.",
@@ -28,7 +31,7 @@ class AnalysisService:
 
         prompt = build_analysis_prompt(
             request.problem_statement,
-            request.source_code,
+            clean_source_code,
             request.language,
             ast_info
         )
