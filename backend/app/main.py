@@ -17,3 +17,10 @@ app.include_router(analysis_router, prefix="/api")
 @app.get("/health")
 def health_check():
     return {"status": "ok"}
+
+@app.get("/")
+def read_root():
+    return {
+        "message": "AI Coder Analyzer API is running successfully on Vercel!",
+        "docs": "Visit /docs to see the API documentation."
+    }
