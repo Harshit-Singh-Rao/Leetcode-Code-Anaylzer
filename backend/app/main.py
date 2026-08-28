@@ -20,9 +20,11 @@ app.include_router(analysis_router, prefix="/api")
 def health_check():
     return {"status": "ok"}
 
-@app.get("/")
+from fastapi.responses import HTMLResponse
+import os
+
+@app.get("/", response_class=HTMLResponse)
 def read_root():
-    return {
-        "message": "AI Coder Analyzer API is running successfully on Vercel!",
-        "docs": "Visit /docs to see the API documentation."
-    }
+    template_path = os.path.join(os.path.dirname(__file__), "templates", "index.html")
+    with open(template_path, "r", encoding="utf-8") as f:
+        return f.read()
