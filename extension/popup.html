@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Coder Analyzer - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-error-container": "#93000a",
+                      "on-secondary-container": "#5c647a",
+                      "surface": "#f8f9ff",
+                      "secondary": "#565e74",
+                      "primary": "#003ec7",
+                      "secondary-fixed": "#dae2fd",
+                      "secondary-container": "#dae2fd",
+                      "on-surface-variant": "#434656",
+                      "surface-container": "#e5eeff",
+                      "inverse-primary": "#b7c4ff",
+                      "on-secondary": "#ffffff",
+                      "tertiary": "#4b4e50",
+                      "on-primary": "#ffffff",
+                      "tertiary-container": "#636668",
+                      "on-tertiary-fixed-variant": "#444749",
+                      "on-surface": "#0b1c30",
+                      "surface-dim": "#cbdbf5",
+                      "tertiary-fixed": "#e0e3e5",
+                      "on-tertiary-fixed": "#191c1e",
+                      "background": "#f8f9ff",
+                      "surface-container-high": "#dce9ff",
+                      "on-primary-fixed": "#001452",
+                      "tertiary-fixed-dim": "#c4c7c9",
+                      "surface-variant": "#d3e4fe",
+                      "secondary-fixed-dim": "#bec6e0",
+                      "surface-container-highest": "#d3e4fe",
+                      "on-primary-fixed-variant": "#0038b6",
+                      "on-error": "#ffffff",
+                      "outline-variant": "#c3c5d9",
+                      "primary-container": "#0052ff",
+                      "surface-bright": "#f8f9ff",
+                      "outline": "#737688",
+                      "surface-tint": "#004ced",
+                      "on-primary-container": "#dfe3ff",
+                      "primary-fixed-dim": "#b7c4ff",
+                      "on-tertiary-container": "#e2e4e6",
+                      "on-secondary-fixed-variant": "#3f465c",
+                      "error": "#ba1a1a",
+                      "inverse-on-surface": "#eaf1ff",
+                      "surface-container-low": "#eff4ff",
+                      "on-secondary-fixed": "#131b2e",
+                      "inverse-surface": "#213145",
+                      "primary-fixed": "#dde1ff",
+                      "on-background": "#0b1c30",
+                      "error-container": "#ffdad6",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-lowest": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "lg": "24px",
+                      "xl": "32px",
+                      "base": "4px",
+                      "container-max": "1440px",
+                      "xs": "8px",
+                      "2xl": "48px",
+                      "sm": "12px",
+                      "md": "16px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "h2": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "h1": [
+                              "Inter"
+                      ],
+                      "code-block": [
+                              "JetBrains Mono"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "h3": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "h2": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "h1": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "code-block": [
+                              "14px",
+                              {
+                                      "lineHeight": "22px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "h3": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hidden-result {
+            display: none;
+            opacity: 0;
+        }
+        .spinner {
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top: 2px solid #fff;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .editor-container {
+            background-color: #0b1c30; /* dark theme */
+            color: #b7c4ff;
+        }
+        .editor-container textarea {
+            background: transparent;
+            color: inherit;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background w-[500px] h-[600px] overflow-y-auto flex flex-col font-body-md text-body-md">
+<!-- TopAppBar from JSON -->
+<header class="w-full sticky top-0 z-50 bg-surface border-b border-outline-variant shadow-sm transition-colors duration-150">
+<div class="flex items-center justify-between px-md py-md max-w-container-max mx-auto md:px-lg">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary text-h2 font-h2" style="font-variation-settings: 'FILL' 0;">terminal</span>
+<h1 class="font-h1 text-h1 text-primary tracking-tighter hidden md:block">AI Coder Analyzer</h1>
+<h1 class="font-h2 text-h2 text-primary tracking-tighter md:hidden">AI Coder</h1>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:scale-95 duration-150">language</span>
+</div>
+</div>
+</header>
+<main class="flex-1 flex flex-col p-md gap-lg md:max-w-3xl md:mx-auto md:w-full">
+<!-- Input Section -->
+<section class="flex flex-col gap-sm bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm">
+<div class="flex flex-col gap-base">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="language">Language</label>
+<select class="form-select w-full rounded-lg border-outline focus:border-primary focus:ring focus:ring-primary-container focus:ring-opacity-50 font-body-md text-body-md bg-surface" id="language">
+<option value="python">Python</option>
+<option value="java">Java</option>
+<option value="cpp">C++</option>
+<option value="c">C</option>
+</select>
+</div>
+<div class="flex flex-col gap-base mt-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="problem">Problem Statement</label>
+<textarea class="form-textarea w-full rounded-lg border-outline focus:border-primary focus:ring focus:ring-primary-container focus:ring-opacity-50 font-body-md text-body-md bg-surface resize-none" id="problem" placeholder="Paste the problem statement or requirements here..." rows="3"></textarea>
+</div>
+<div class="flex flex-col gap-base mt-xs flex-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="code">Source Code</label>
+<div class="editor-container rounded-lg p-sm shadow-inner flex-1 flex flex-col border border-outline-variant focus-within:border-primary focus-within:ring focus-within:ring-primary-container focus-within:ring-opacity-50">
+<textarea class="form-textarea w-full flex-1 border-none focus:ring-0 font-code-block text-code-block resize-none" id="code" placeholder="def solution(n):
+    # Write your code here
+    pass" rows="10" spellcheck="false"></textarea>
+</div>
+</div>
+<button class="mt-md bg-primary text-on-primary font-h3 text-h3 py-sm px-lg rounded-lg hover:bg-primary-fixed-variant transition-colors active:scale-95 duration-150 flex justify-center items-center" id="analyze-btn">
+<span id="btn-text">Analyze Code</span>
+<span class="spinner hidden" id="btn-spinner"></span>
+</button>
+</section>
+<!-- Results Section (Initially Hidden) -->
+<section class="hidden-result flex flex-col gap-md" id="results-section">
+<h2 class="font-h2 text-h2 text-on-surface border-b border-outline-variant pb-xs">Analysis Report</h2>
+<div class="grid grid-cols-2 gap-sm">
+<!-- Score Card -->
+<div class="col-span-2 bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm flex items-center justify-between">
+<div>
+<h3 class="font-h3 text-h3 text-on-surface">Overall Score</h3>
+<div class="mt-xs inline-flex items-center gap-xs px-sm py-base rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm border border-outline-variant">
+<span class="w-2 h-2 rounded-full bg-primary block"></span>
+<span id="score-text">AI Evaluation</span>
+</div>
+</div>
+<div class="relative w-16 h-16 flex items-center justify-center">
+<!-- Simplified circular progress -->
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<path class="text-surface-container-high" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="100, 100" stroke-width="4"></path>
+<path class="text-primary" id="score-circle" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="0, 100" stroke-width="4"></path>
+</svg>
+<span class="absolute font-h3 text-h3 text-primary" id="score-display">0/10</span>
+</div>
+</div>
+<!-- Correctness -->
+<div class="col-span-2 bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">info</span>
+<span class="font-h3 text-h3 text-on-surface" id="correctness-display">Correctness Assessment</span>
+</div>
+<!-- Complexity -->
+<div class="bg-surface-container-lowest p-sm rounded-xl border-l-4 border-l-primary border-t border-r border-b border-outline-variant shadow-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant block mb-xs">Time Complexity</span>
+<span class="font-code-block text-code-block text-on-surface font-bold" id="time-complexity-display">-</span>
+</div>
+<div class="bg-surface-container-lowest p-sm rounded-xl border-l-4 border-l-primary border-t border-r border-b border-outline-variant shadow-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant block mb-xs">Space Complexity</span>
+<span class="font-code-block text-code-block text-on-surface font-bold" id="space-complexity-display">-</span>
+</div>
+</div>
+<!-- Feedback Lists -->
+<div class="flex flex-col gap-sm">
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm">
+<h4 class="font-label-sm text-label-sm text-on-surface-variant mb-sm uppercase tracking-wider">Readability Feedback</h4>
+<p class="font-body-md text-body-md text-on-surface" id="readability-display">-</p>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm">
+<h4 class="font-label-sm text-label-sm text-on-surface-variant mb-sm uppercase tracking-wider">Issues Detected</h4>
+<ul class="list-disc list-inside space-y-xs font-body-md text-body-md text-on-surface" id="issues-list"></ul>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm">
+<h4 class="font-label-sm text-label-sm text-on-surface-variant mb-sm uppercase tracking-wider">Optimizations</h4>
+<ul class="list-disc list-inside space-y-xs font-body-md text-body-md text-on-surface" id="optimizations-list"></ul>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm">
+<h4 class="font-label-sm text-label-sm text-on-surface-variant mb-sm uppercase tracking-wider">Modularity</h4>
+<ul class="list-disc list-inside space-y-xs font-body-md text-body-md text-on-surface" id="modularity-list"></ul>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm">
+<h4 class="font-label-sm text-label-sm text-on-surface-variant mb-sm uppercase tracking-wider">Alternative Algorithms</h4>
+<ul class="list-disc list-inside space-y-xs font-body-md text-body-md text-on-surface" id="alternatives-list"></ul>
+</div>
+</div>
+</section>
+</main>
+<script src="popup.js"></script>
+</body></html>
