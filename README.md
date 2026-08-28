@@ -2,9 +2,9 @@
 
 An AI-powered Chromium browser extension designed to act as your personal coding assistant and reviewer. When you're stuck on a LeetCode problem or want to know how your solution stacks up, this extension provides instant, highly-structured feedback directly in your browser.
 
-**Live Backend API**: [https://leetcode-code-anaylzer.vercel.app/](https://leetcode-code-anaylzer.vercel.app/)
+**Live Backend API**: (https://leetcode-code-anaylzer.vercel.app/)
 
-## ✨ Features
+## Features
 
 *   **Native LeetCode Integration:** Automatically scrapes the problem description and your code from the active LeetCode tab. No copy-pasting required!
 *   **Deep Code Analysis:** Powered by the Gemini AI model, the analyzer provides insights into:
@@ -15,7 +15,7 @@ An AI-powered Chromium browser extension designed to act as your personal coding
     *   Optimization & Modularity Recommendations
     *   Alternative Algorithms
 
-## 🚀 How to Install and Use (Developer Mode)
+## How to Install and Use (Developer Mode)
 
 Since this extension interacts with your active browser tabs, you can easily load it into Google Chrome, Microsoft Edge, or Brave by following these steps:
 
