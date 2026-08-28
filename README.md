@@ -34,7 +34,7 @@ Since this extension interacts with your active browser tabs, you can easily loa
 3.  Watch as your problem statement and code are automatically filled in!
 4.  Click **"Analyze Code"** to get your AI evaluation.
 
-## 🛠️ Architecture
+## Architecture
 
 *   **Frontend:** Vanilla HTML, CSS (Tailwind), and JS inside a Manifest V3 Chrome Extension architecture.
 *   **Backend:** Python FastAPI server hosted on Vercel.
